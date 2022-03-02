@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * SecureFlag Knowledge Base for SonarQube
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,8 +16,28 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-.example-global_page {
-  text-align: center;
-  max-width: 400px;
-  padding: 20px;
+
+export function tagToName(tag) {
+  const tags = {
+    'owasp-a1': 'Code Injection',
+    'owasp-a2': 'Broken Authentication',
+    'owasp-a3': 'Sensitive Information Disclosure',
+    'owasp-a4': 'XXE',
+    'owasp-a5': 'Broken Authorization'
+  }
+  
+  return tags[tag];
+}
+
+export function getOwaspTag(tagArray) {
+  for (const tag of tagArray) {
+    if (tag.startsWith('owasp-')) {
+      return tag;
+    }
+  }
+  return '';
+}
+
+export function getOwaspTitle(tagArray) {
+  return tagToName(getOwaspTag(tagArray));
 }

@@ -1,7 +1,7 @@
 /*
- * Example Plugin for SonarQube
+ * SecureFlag Knowledge Base for SonarQube
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,36 +17,24 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonarsource.plugins.example.web;
+package com.secureflag.knowledgebase.web;
 
 import org.sonar.api.web.page.Context;
 import org.sonar.api.web.page.Page;
 import org.sonar.api.web.page.PageDefinition;
 
-import static org.sonar.api.web.page.Page.Qualifier.SUB_VIEW;
-import static org.sonar.api.web.page.Page.Qualifier.VIEW;
 import static org.sonar.api.web.page.Page.Scope.COMPONENT;
+import static org.sonar.api.web.page.Page.Qualifier.PROJECT;
 
-public class MyPluginPageDefinition implements PageDefinition {
+public class SecureFlagKnowledgeBase implements PageDefinition {
 
   @Override
   public void define(Context context) {
     context
-      .addPage(Page.builder("example/global_page")
-        .setName("Global Page using Vanilla JS")
-        .build())
-      .addPage(Page.builder("example/project_page")
-        .setName("Project Page using Backbone JS")
+      .addPage(Page.builder("secureflag/knowledge_base")
+        .setName("SecureFlag Knowledge Base")
         .setScope(COMPONENT)
-        .build())
-      .addPage(Page.builder("example/portfolio_page")
-        .setName("Portfolio Page using React JS")
-        .setScope(COMPONENT)
-        .setComponentQualifiers(VIEW, SUB_VIEW)
-        .build())
-      .addPage(Page.builder("example/admin_page")
-        .setName("Admin Page using React JS")
-        .setAdmin(true)
+        .setComponentQualifiers(PROJECT)
         .build());
   }
 }

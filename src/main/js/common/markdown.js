@@ -1,6 +1,5 @@
 /*
  * SecureFlag Knowledge Base for SonarQube
- * Copyright (C) 2009-2020 SonarSource SA
  * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
@@ -18,33 +17,19 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import { getJSON } from "sonar-request";
-
-export function findNewSecurityIssues(project) {
-  return getJSON("/api/issues/search", {
-    componentKeys: [project.key],
-    types: ['VULNERABILITY'],
-    facets: ['owaspTop10', 'sansTop25', 'cwe', 'sonarSourceSecurity'],
-    ps: 10
-  }).then(response => {
-    return response;
-  });
+export function extractExrLink(markdown) {
+  const linkRegex = /Click \[here\]\((.*?)\)/
+  const match = markdown.match(linkRegex);
+  console.log(match);
+  return match[1];
 }
 
-export async function queryKnowledgeBase(text) {
-  const res = await fetch('http://localhost:3100/dev/vuln/extract/markdown', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'IF4XmmBiQj',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      platformString: 'SONARQUBE',
-      text,
-      author: 'SONARQUBE'
-    })
-  });
-  const json = await res.json();
-  return json.markdown;
+export function formatMarkdown(text) {
+  const frontmatterRegex = /^---[\s\S]+?---$/m
+  text = text.replace(frontmatterRegex, "");
+  const tocRegex = /^1. TOC\n{:toc}$/m;
+  text = text.replace(tocRegex, "");
+  const imageRegex = /^(!\[\w+\]\()(\/assets\/images.*)(\))$/gm;
+  text = text.replace(imageRegex, "");
+  return text;
 }
-

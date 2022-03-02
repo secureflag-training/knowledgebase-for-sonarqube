@@ -1,6 +1,7 @@
 /*
+ * SecureFlag Knowledge Base for SonarQube
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,15 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import React from 'react';
-import '../style.css';
-import InstanceStatisticsApp from './components/InstanceStatisticsApp';
+package com.secureflag.knowledgebase;
 
-// This creates a global administration page, which generates a report of the
-// overall number of Quality Profiles, Quality Gates, total number of issues,
-// and total number of projects.
-//
-// You can access it at /admin/extension/example/admin_page
-window.registerExtension('example/admin_page', () => {
-  return <InstanceStatisticsApp />
-});
+import org.sonar.api.Plugin;
+import com.secureflag.knowledgebase.web.SecureFlagKnowledgeBase;
+/**
+ * This class is the entry point for all extensions. It is referenced in pom.xml.
+ */
+public class KnowledgeBasePlugin implements Plugin {
+
+  @Override
+  public void define(Context context) {
+    context.addExtension(SecureFlagKnowledgeBase.class);
+  }
+}

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * SecureFlag Knowledge Base for SonarQube
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,14 +16,11 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import React from "react";
-import "../style.css";
-import VersionsMeasuresHistoryApp from "./components/VersionsMeasuresHistoryApp";
 
-// This creates a page for portfolios, which generates a report for all the
-// projects inside the portfolio.
-//
-//  You can access it at /project/extension/example/portfolio_page?id={PORTFOLIO_ID}&qualifier=VW
-window.registerExtension("example/portfolio_page", options => {
-  return <VersionsMeasuresHistoryApp project={options.component} />;
-});
+import React from "react";
+
+export default function LinkPill(props) {
+  return (
+    <a class="f6 link br-pill ph3 pv2 dib white hover-white dim bg-blue" href={props.link}>{props.text}</a>
+  )
+}

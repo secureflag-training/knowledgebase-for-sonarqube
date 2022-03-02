@@ -1,7 +1,7 @@
 /*
- * Example Plugin for SonarQube
+ * SecureFlag Knowledge Base for SonarQube
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:contact AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,25 +17,12 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonarsource.plugins.example.hooks;
 
-import org.sonar.api.batch.postjob.PostJob;
-import org.sonar.api.batch.postjob.PostJobContext;
-import org.sonar.api.batch.postjob.PostJobDescriptor;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
+import React from 'react';
+import '../tachyons.min.css';
+import '../style.css';
+import KnowledgeBaseApp from './components/App';
 
-public class PostJobInScanner implements PostJob {
-
-  private static final Logger LOGGER = Loggers.get(PostJobInScanner.class);
-
-  @Override
-  public void describe(PostJobDescriptor descriptor) {
-    descriptor.name("After scan");
-  }
-
-  @Override
-  public void execute(PostJobContext context) {
-    LOGGER.info("Something to do after the analysis report has been submitted");
-  }
-}
+window.registerExtension('secureflag/knowledge_base', (options) => {
+  return <KnowledgeBaseApp options={options}/>
+});

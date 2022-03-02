@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.sonarsource.plugins.example</groupId>
+  <groupId>com.secureflag.knowledgebase</groupId>
   <artifactId>sonar-example-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>8.1.0</version>
+  <version>1.0.0</version>
 
-  <name>Example Plugin for SonarQube 8.x</name>
-  <description>Example of Plugin for SonarQube: Foo Language, FooLint, Custom Metrics and MeasureComputers</description>
+  <name>SecureFlag Knowledge Base for SonarQube</name>
+  <description>Recommended training labs and remediation advice for recent vulnerabilities and security hotspots</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,8 +55,8 @@
         <version>1.18.0.372</version>
         <extensions>true</extensions>
         <configuration>
-          <pluginKey>example</pluginKey>
-          <pluginClass>org.sonarsource.plugins.example.ExamplePlugin</pluginClass>
+          <pluginKey>secureflag</pluginKey>
+          <pluginClass>com.secureflag.knowledgebase.KnowledgeBasePlugin</pluginClass>
         </configuration>
       </plugin>
       <plugin>
@@ -93,8 +93,8 @@
               <goal>install-node-and-yarn</goal>
             </goals>
             <configuration>
-              <nodeVersion>v14.15.1</nodeVersion>
-              <yarnVersion>v1.22.5</yarnVersion>
+              <nodeVersion>v16.14.0</nodeVersion>
+              <yarnVersion>v1.22.17</yarnVersion>
             </configuration>
           </execution>
           <execution>
