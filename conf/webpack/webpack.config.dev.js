@@ -29,6 +29,4 @@ Object.keys(config.entry).forEach(key => {
   config.entry[key].unshift(require.resolve('react-dev-utils/webpackHotDevClient'));
 });
 
-config.plugins = [new webpack.HotModuleReplacementPlugin()];
-
 module.exports = config;

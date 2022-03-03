@@ -1,46 +1,38 @@
 {
-  "name": "sonar-custom-plugin-example",
+  "name": "secureflag-knowledgebase-sonarqube",
   "license": "LGPL-3.0",
-  "version": "7.0.0",
+  "version": "1.0.0",
   "devDependencies": {
-    "autoprefixer": "6.2.2",
-    "babel-core": "6.14.0",
-    "babel-jest": "18.0.0",
-    "babel-loader": "6.2.5",
-    "babel-preset-react-app": "0.2.1",
-    "cross-env": "2.0.0",
-    "cross-spawn": "4.0.0",
-    "css-loader": "0.23.1",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "autoprefixer": "10.4.2",
+    "babel-jest": "27.5.1",
+    "babel-loader": "^8.2.3",
+    "css-loader": "5",
     "detect-port": "1.0.0",
-    "dotenv": "2.0.0",
-    "enzyme": "2.6.0",
-    "enzyme-to-json": "1.4.5",
-    "expose-loader": "0.7.1",
-    "express": "4.13.4",
-    "express-http-proxy": "0.6.0",
-    "filesize": "3.3.0",
-    "find-cache-dir": "0.1.1",
-    "gzip-size": "3.0.0",
-    "imports-loader": "0.6.5",
-    "jest": "18.0.0",
-    "json-loader": "0.5.4",
-    "path-exists": "2.1.0",
-    "postcss-loader": "0.8.0",
-    "prettier": "0.22.0",
-    "react": "15.6.2",
-    "react-addons-shallow-compare": "15.6.2",
-    "react-addons-test-utils": "15.6.2",
-    "react-dev-utils": "0.2.1",
-    "react-dom": "15.6.2",
-    "react-router": "3.0.2",
-    "react-transform-hmr": "1.0.4",
-    "recursive-readdir": "2.1.0",
-    "rimraf": "2.5.4",
-    "script-loader": "0.6.1",
-    "strip-ansi": "3.0.1",
-    "style-loader": "0.13.0",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "1.16.1"
+    "dotenv": "16.0.0",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "enzyme": "3",
+    "enzyme-to-json": "3",
+    "expose-loader": "1",
+    "jest": "27.5.1",
+    "postcss": "^8.4.7",
+    "postcss-loader": "^4.3.0",
+    "prettier": "2.5.1",
+    "prompts": "^2.4.2",
+    "react": "16.8",
+    "react-addons-shallow-compare": "15.6.3",
+    "react-dev-utils": "12",
+    "react-dom": "16.8",
+    "react-markdown": "^8.0.0",
+    "react-router": "6",
+    "regenerator-runtime": "^0.13.9",
+    "style-loader": "2",
+    "terser-webpack-plugin": "^4.2.3",
+    "webpack": "4",
+    "webpack-dev-server": "4.7.4"
   },
   "scripts": {
     "build": "node scripts/build.js",
@@ -49,7 +41,17 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry",
+          "corejs": "3"
+        }
+      ],
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
     ]
   },
   "jest": {
@@ -80,8 +82,8 @@
     ]
   },
   "dependencies": {
-    "backbone": "^1.4.0",
-    "jquery": "^1.11.0",
-    "underscore": "^1.9.1"
+    "@babel/runtime": "^7.17.2",
+    "core-js": "3",
+    "underscore": "^1.12.1"
   }
 }

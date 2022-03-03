@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.secureflag.knowledgebase</groupId>
-  <artifactId>sonar-example-plugin</artifactId>
+  <artifactId>sonar-secureflag-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
   <version>1.0.0</version>
 
@@ -117,5 +117,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
