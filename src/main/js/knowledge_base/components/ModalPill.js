@@ -19,6 +19,7 @@
 
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function ModalPill(props) {
   const [showModal, setShowModal] = React.useState(false);
@@ -42,7 +43,7 @@ export default function ModalPill(props) {
         <div class="modalContainer">
           <div class="modalContent">
             <p align="left" width="100%"><img src="https://user-images.githubusercontent.com/87369283/128739726-f334fbf2-c531-4972-a175-547485ba2322.png" width="50%"/></p>
-            <ReactMarkdown>{props.markdown}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.markdown}</ReactMarkdown>
             <a class="f6 link dim br-pill ph3 pv2 dib white bg-near-black" 
               href={props.link}
               onClick={handleCloseModal}>
