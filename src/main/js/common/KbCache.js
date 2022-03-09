@@ -51,15 +51,9 @@ export default class KbCache {
 
       this.awaiting[text] = [{resolve, reject}];
       const res = await queryKnowledgeBase(text);
-      if (res) {
-        this.awaiting[text].forEach(({
-          resolve
-        }) => resolve(res));
-      } else {
-        this.awaiting[text].forEach(({
-          reject
-        }) => reject(''));
-      }
+      this.awaiting[text].forEach(({
+        resolve
+      }) => resolve(res));
       delete this.awaiting[text];
     });
   }
