@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,21 +17,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 const path = require("path");
-const autoprefixer = require("autoprefixer");
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 
 module.exports = {
   // Define the entry points here. They MUST have the same name as the page_id
   // defined in src/main/java/org/sonarsource/plugins/example/web/MyPluginPageDefinition.java
   entry: {
-    // Using Vanilla JS:
-    global_page: ["./src/main/js/global_page/index.js"],
-
-    // Using Backbone JS:
-    project_page: ["./src/main/js/project_page/index.js"],
-
     // Using React:
-    portfolio_page: ["./src/main/js/portfolio_page/index.js"],
-    admin_page: ["./src/main/js/admin_page/index.js"]
+    knowledge_base: ["./src/main/js/knowledge_base/index.js"]
   },
   output: {
     // The entry point files MUST be shipped inside the final JAR's static/
@@ -40,7 +33,10 @@ module.exports = {
     filename: "[name].js"
   },
   resolve: {
-    root: path.join(__dirname, "src/main/js")
+    modules: [
+      path.join(__dirname, "src/main/js"),
+      'node_modules'
+    ]
   },
   externals: {
     // React 16.8 ships with SonarQube, and should be re-used to avoid 
@@ -53,31 +49,20 @@ module.exports = {
     "sonar-request": "SonarRequest",
   },
   module: {
-    // Our example uses Babel to transpile our code.
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: "babel",
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.css/,
-        loader: "style-loader!css-loader!postcss-loader"
+        use: ["style-loader", "css-loader", "postcss-loader"]
       },
       { test: /\.json$/, loader: "json" }
     ]
   },
-  postcss() {
-    return [
-      autoprefixer({
-        browsers: [
-          "last 3 Chrome versions",
-          "last 3 Firefox versions",
-          "last 3 Safari versions",
-          "last 3 Edge versions",
-          "IE 11"
-        ]
-      })
-    ];
-  }
+  plugins: [new DuplicatePackageCheckerPlugin()]
 };
