@@ -25,7 +25,19 @@ export function findNewSecurityIssues(project) {
     componentKeys: [project.key],
     types: ['VULNERABILITY'],
     facets: ['owaspTop10', 'sansTop25', 'cwe', 'sonarSourceSecurity'],
-    ps: 10
+    p: 1,
+    ps: 30,
+    statuses: ['OPEN', 'REOPENED', 'CONFIRMED']
+  }).then(response => {
+    return response;
+  });
+}
+
+export function findNewSecurityHotspots(project) {
+  return getJSON("/api/hotspots/search", {
+    projectKey: project.key,
+    ps: 30,
+    status: 'TO_REVIEW'
   }).then(response => {
     return response;
   });
@@ -44,7 +56,12 @@ export async function queryKnowledgeBase(text) {
       author: 'SONARQUBE'
     })
   });
-  const json = await res.json();
-  return json.markdown;
+
+  if (res.ok) {
+    const json = await res.json();
+    return json.markdown;
+  }
+
+  return '';
 }
 
