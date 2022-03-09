@@ -18,7 +18,7 @@
  */
 
 import React from "react";
-import { getOwaspTitle } from "../../common/owasp";
+import { OwaspTop10 } from "../../common/owasp";
 import IssueItem from "./IssueItem";
 
 export default function IssueTable(props) {
@@ -29,7 +29,7 @@ export default function IssueTable(props) {
     issues.forEach(async (issue, index, issues) => {
       if (issue.tags.includes('cwe')) {
         const issueCopy = Object.assign({}, issue);
-        const owaspTitle = getOwaspTitle(issueCopy.tags);
+        const owaspTitle = OwaspTop10.getTitle(issueCopy.tags);
         if(owaspTitle) {
           console.log(owaspTitle);
 
@@ -42,7 +42,7 @@ export default function IssueTable(props) {
   }, []);
 
   return (
-    <div>
+    <div class="mb3">
       <div class="overflow-auto">
         <table class="f6 w-100 center" cellspacing="0">
           <thead>
