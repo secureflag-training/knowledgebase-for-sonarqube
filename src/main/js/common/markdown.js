@@ -20,7 +20,6 @@
 export function extractExrLink(markdown) {
   const linkRegex = /Click \[here\]\((.*?)\)/
   const match = markdown.match(linkRegex);
-  console.log(match);
   return match[1];
 }
 
