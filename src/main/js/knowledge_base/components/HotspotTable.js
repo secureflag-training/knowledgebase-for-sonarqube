@@ -25,12 +25,11 @@ export default function HotspotTable(props) {
 
   React.useEffect(async () => {
     // Query Knowledge Base API for each vulnerability
-    hotspots.forEach(async (hotspot, index, hotspots) => {
+    hotspots.forEach(async (hotspot, index, hotspotsArray) => {
       if (hotspot.securityCategory) {
-        const hotspotCopy = Object.assign({}, hotspot);
         const markdown = await props.kbCache.fetch(hotspot.securityCategory);
         hotspot.kb = markdown ? markdown : 'N/A';
-        setHotspots(hotspots.slice());
+        setHotspots(hotspotsArray.slice());
       }
     });
   }, []);
