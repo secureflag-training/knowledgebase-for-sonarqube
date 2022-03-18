@@ -18,7 +18,7 @@
  */
 
 import React from "react";
-import { OwaspTop10 } from "../../common/owasp";
+import { OwaspTop10 } from "../../common/OwaspTop10";
 import IssueItem from "./IssueItem";
 
 export default function IssueTable(props) {
@@ -26,16 +26,14 @@ export default function IssueTable(props) {
 
   React.useEffect(async () => {
     // Query Knowledge Base API for each vulnerability
-    issues.forEach(async (issue, index, issues) => {
+    issues.forEach(async (issue, index, issuesArray) => {
       if (issue.tags.includes('cwe')) {
         const issueCopy = Object.assign({}, issue);
         const owaspTitle = OwaspTop10.getTitle(issueCopy.tags);
         if(owaspTitle) {
-          console.log(owaspTitle);
-
           const markdown = await props.kbCache.fetch(owaspTitle);
           issue.kb = markdown ? markdown : 'N/A';
-          setIssues(issues.slice());
+          setIssues(issuesArray.slice());
         }
       }
     });
