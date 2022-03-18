@@ -53,7 +53,10 @@ export default class KbCache {
       const res = await queryKnowledgeBase(text);
       this.awaiting[text].forEach(({
         resolve
-      }) => resolve(res));
+      }) => {
+        this.set(text, res);
+        resolve(res);
+      });
       delete this.awaiting[text];
     });
   }

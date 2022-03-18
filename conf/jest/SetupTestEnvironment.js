@@ -1,6 +1,7 @@
 /*
+ * SecureFlag Knowledge Base for SonarQube
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,3 +23,5 @@ window.t = (window.tp = function() {
   const args = Array.prototype.slice.call(arguments, 0);
   return args.join('.');
 });
+
+require('jest-fetch-mock').enableMocks()
