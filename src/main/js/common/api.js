@@ -47,7 +47,6 @@ export async function queryKnowledgeBase(text) {
   const res = await fetch('http://localhost:3100/dev/vuln/extract/markdown', {
     method: 'POST',
     headers: {
-      'Authorization': 'IF4XmmBiQj',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({

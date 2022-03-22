@@ -24,19 +24,22 @@ import IssueItem from "./IssueItem";
 export default function IssueTable(props) {
   const [issues, setIssues] = React.useState(props.issues);
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     // Query Knowledge Base API for each vulnerability
-    issues.forEach(async (issue, index, issuesArray) => {
-      if (issue.tags.includes('cwe')) {
-        const issueCopy = Object.assign({}, issue);
-        const owaspTitle = OwaspTop10.getTitle(issueCopy.tags);
-        if(owaspTitle) {
-          const markdown = await props.kbCache.fetch(owaspTitle);
-          issue.kb = markdown ? markdown : 'N/A';
-          setIssues(issuesArray.slice());
+    async function queryKnowledgeBase() {
+      issues.forEach(async (issue, index, issuesArray) => {
+        if (issue.tags.includes('cwe')) {
+          const issueCopy = Object.assign({}, issue);
+          const owaspTitle = OwaspTop10.getTitle(issueCopy.tags);
+          if(owaspTitle) {
+            const markdown = await props.kbCache.fetch(owaspTitle);
+            issue.kb = markdown ? markdown : 'N/A';
+            setIssues(issuesArray.slice());
+          }
         }
-      }
-    });
+      });
+    }
+    queryKnowledgeBase();
   }, []);
 
   return (

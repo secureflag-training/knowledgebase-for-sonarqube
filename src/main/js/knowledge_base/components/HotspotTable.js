@@ -23,15 +23,18 @@ import HotspotItem from "./HotspotItem";
 export default function HotspotTable(props) {
   const [hotspots, setHotspots] = React.useState(props.hotspots);
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     // Query Knowledge Base API for each vulnerability
-    hotspots.forEach(async (hotspot, index, hotspotsArray) => {
-      if (hotspot.securityCategory) {
-        const markdown = await props.kbCache.fetch(hotspot.securityCategory);
-        hotspot.kb = markdown ? markdown : 'N/A';
-        setHotspots(hotspotsArray.slice());
-      }
-    });
+    async function queryKnowledgeBase() {
+      hotspots.forEach(async (hotspot, index, hotspotsArray) => {
+        if (hotspot.securityCategory) {
+          const markdown = await props.kbCache.fetch(hotspot.securityCategory);
+          hotspot.kb = markdown ? markdown : 'N/A';
+          setHotspots(hotspotsArray.slice());
+        }
+      });
+    }
+    queryKnowledgeBase();
   }, []);
 
   return (
