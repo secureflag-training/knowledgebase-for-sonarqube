@@ -3,9 +3,7 @@
  */
 
  import React from 'react'
- import {act} from 'react-dom/test-utils';
- import { setImmediate } from 'core-js';
- import {mount, shallow} from 'enzyme'
+ import {mount} from 'enzyme'
  
  import HotspotTable from '../../src/main/js/knowledge_base/components/HotspotTable'
  
