@@ -22,5 +22,5 @@
      }
    }
    const wrapper = shallow(<KnowledgeBaseApp options={options}/>);
-   expect(wrapper.contains('<div>Loading...</div>'));
+   expect(wrapper.contains('Loading...')).toBe(true);
  });
