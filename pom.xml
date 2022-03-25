@@ -45,6 +45,8 @@
     <jdk.min.version>1.8</jdk.min.version>
     <sonar.sources>src/main/java,src/main/js</sonar.sources>
     <sonar.pluginTermsConditionsUrl>https://www.secureflag.com/terms/eula.html</sonar.pluginTermsConditionsUrl>
+    <sonar.javascript.lcov.reportPaths>target/coverage/lcov.info</sonar.javascript.lcov.reportPaths>
+    <sonar.tests>tests</sonar.tests>
   </properties>
 
   <dependencies>
