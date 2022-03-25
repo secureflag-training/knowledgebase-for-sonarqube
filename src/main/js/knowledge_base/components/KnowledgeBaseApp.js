@@ -22,7 +22,7 @@ import {
   findNewSecurityIssues,
   findNewSecurityHotspots
 } from "../../common/api";
-import KbCache from "../../common/kbCache";
+import KbCache from "../../common/KbCache";
 import IssueTable from "./IssueTable";
 import HotspotTable from "./HotspotTable";
 
