@@ -10,11 +10,41 @@
   <name>SecureFlag Knowledge Base for SonarQube</name>
   <description>Recommended training labs and remediation advice for recent vulnerabilities and security hotspots</description>
 
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License v3.0</name>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+    </license>
+  </licenses>
+  
+  <developers>
+    <developer>
+      <name>Bruce Lay</name>
+      <email>bruce.lay@secureflag.com</email>
+      <organization>SecureFlag</organization>
+      <organizationUrl>https://www.secureflag.com/index.html</organizationUrl>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>SecureFlag</name>
+    <url>https://www.secureflag.com/index.html</url>
+  </organization>
+
+  <scm>
+    <url>https://github.com/secureflag-training/knowledgebase-for-sonarqube</url>
+  </scm>
+
+  <issueManagement>
+    <url>https://github.com/secureflag-training/knowledgebase-for-sonarqube/issues</url>
+  </issueManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <sonar.apiVersion>8.3.1.34397</sonar.apiVersion>
+    <sonar.apiVersion>8.9.0.43852</sonar.apiVersion>
     <jdk.min.version>1.8</jdk.min.version>
     <sonar.sources>src/main/java,src/main/js</sonar.sources>
+    <sonar.pluginTermsConditionsUrl>https://www.secureflag.com/terms/eula.html</sonar.pluginTermsConditionsUrl>
   </properties>
 
   <dependencies>
@@ -29,21 +59,6 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
-    </dependency>
-
-
-    <!-- unit tests -->
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-testing-harness</artifactId>
-      <version>${sonar.apiVersion}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
