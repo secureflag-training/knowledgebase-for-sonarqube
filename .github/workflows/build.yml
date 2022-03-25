@@ -17,6 +17,8 @@ jobs:
         run: yarn
       - name: Test and coverage
         run: yarn jest --coverage
+      - name: Delete pom.xml
+        run: rm pom.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
