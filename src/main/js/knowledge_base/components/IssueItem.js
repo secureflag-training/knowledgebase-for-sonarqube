@@ -46,14 +46,14 @@ export default function IssueItem(props) {
         {issue.kb !== undefined ?
           <LinkPill link={issue.exr} text="Training Lab"></LinkPill>
         :
-          'Fetching...'
+          issue.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
       <td class="pv3 pr3 bb b--black-20">
         {issue.kb !== undefined ?
           <ModalPill markdown={formatMarkdown(issue.kb)}></ModalPill>
         :
-          'Fetching...'
+          issue.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
     </tr>

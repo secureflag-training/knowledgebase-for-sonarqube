@@ -22,6 +22,7 @@ import { formatDateWithBrowserTimeZone } from "../../common/dateUtils";
 import { extractExrLink, formatMarkdown } from "../../common/markdown";
 import LinkPill from "./LinkPill";
 import ModalPill from "./ModalPill";
+import Pill from "./Pill";
 
 export default function HotspotItem(props) {
   const hotspot = props.hotspot;
@@ -46,14 +47,14 @@ export default function HotspotItem(props) {
         {hotspot.exr !== undefined ?
           <LinkPill link={hotspot.exr} text="Training Lab"></LinkPill>
         :
-          hotspot.kb ? 'N/A' : 'Fetching...'
+          hotspot.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
       <td class="pv3 pr3 bb b--black-20">
         {hotspot.exr !== undefined ?
           <ModalPill markdown={formatMarkdown(hotspot.kb)}></ModalPill>
         :
-          hotspot.kb ? 'N/A' : 'Fetching...'
+          hotspot.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
     </tr>
