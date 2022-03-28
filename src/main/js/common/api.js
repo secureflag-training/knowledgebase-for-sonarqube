@@ -44,7 +44,7 @@ export function findNewSecurityHotspots(project) {
 }
 
 export async function queryKnowledgeBase(text) {
-  const res = await fetch('https://knowledge-base-api.secureflag.com/prod/vuln/extract/markdown', {
+  const res = await fetch('https://knowledge-base-api.secureflag.com/vuln/extract/markdown', {
     method: 'POST',
     body: JSON.stringify({
       platformString: 'SONARQUBE',
