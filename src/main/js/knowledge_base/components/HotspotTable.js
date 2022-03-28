@@ -28,6 +28,7 @@ export default function HotspotTable(props) {
     async function queryKnowledgeBase() {
       hotspots.forEach(async (hotspot, index, hotspotsArray) => {
         if (hotspot.securityCategory) {
+          hotspot.vulnerability = hotspot.securityCategory
           const markdown = await props.kbCache.fetch(hotspot.securityCategory);
           hotspot.kb = markdown ? markdown : 'N/A';
           setHotspots(hotspotsArray.slice());
@@ -44,6 +45,8 @@ export default function HotspotTable(props) {
           <thead>
             <tr>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Hotspot</th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Category</th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Last Updated</th>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Recommended Lab</th>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Remediation Advice</th>
             </tr>
