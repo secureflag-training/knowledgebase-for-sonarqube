@@ -37,7 +37,7 @@ export default function HotspotItem(props) {
         <a href={hotspotLink}>{hotspot.message}</a>
       </td>
       <td class="pv3 pr3 bb b--black-20">
-        {hotspot.vulnerability && hotspot.vulnerability}
+        {hotspot.vulnerability ? hotspot.vulnerability : ''}
       </td>
       <td class="pv3 pr3 bb b--black-20">
       {formatDateWithBrowserTimeZone(new Date(hotspot.updateDate))}

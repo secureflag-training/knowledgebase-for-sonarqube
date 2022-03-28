@@ -37,7 +37,7 @@ export default function IssueItem(props) {
         <a href={issueLink}>{issue.message}</a>
       </td>
       <td class="pv3 pr3 bb b--black-20">
-        {issue.vulnerability && issue.vulnerability}
+        {issue.vulnerability ? issue.vulnerability : ''}
       </td>
       <td class="pv3 pr3 bb b--black-20">
         {formatDateWithBrowserTimeZone(new Date(issue.updateDate))}
