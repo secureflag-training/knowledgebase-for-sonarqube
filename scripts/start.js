@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009-2020 SonarSource SA
- * mailto:info AT sonarsource DOT com
+ * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,12 +27,12 @@ require('dotenv').config({ silent: true });
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const httpProxyMiddleware = require('http-proxy-middleware');
 const detect = require('detect-port');
-const clearConsole = require('react-dev-utils/clearConsole');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const prompt = require('react-dev-utils/prompt');
+const prompts = require('prompts');
 const config = require('../conf/webpack/webpack.config.dev.js');
+
+config.mode = 'development';
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = process.env.PORT || 3000;
@@ -51,15 +51,12 @@ function setupCompiler(host, port, protocol) {
   // bundle, so if you refresh, it'll wait instead of serving the old one.
   // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
   compiler.plugin('invalid', () => {
-    clearConsole();
     console.log('Compiling...');
   });
 
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
   compiler.plugin('done', stats => {
-    clearConsole();
-
     // We have switched off the default Webpack output in WebpackDevServer
     // options so we are going to "massage" the warnings and errors and present
     // them in a readable focused way.
@@ -105,22 +102,22 @@ function setupCompiler(host, port, protocol) {
 // We need to provide a custom onError function for httpProxyMiddleware.
 // It allows us to log custom error messages on the console.
 function onProxyError(proxy) {
-  return function(err, req, res) {
+  return function (err, req, res) {
     const host = req.headers && req.headers.host;
     console.log(
       chalk.red('Proxy error:') +
-        ' Could not proxy request ' +
-        chalk.cyan(req.url) +
-        ' from ' +
-        chalk.cyan(host) +
-        ' to ' +
-        chalk.cyan(proxy) +
-        '.'
+      ' Could not proxy request ' +
+      chalk.cyan(req.url) +
+      ' from ' +
+      chalk.cyan(host) +
+      ' to ' +
+      chalk.cyan(proxy) +
+      '.'
     );
     console.log(
       'See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (' +
-        chalk.cyan(err.code) +
-        ').'
+      chalk.cyan(err.code) +
+      ').'
     );
     console.log();
 
@@ -131,14 +128,14 @@ function onProxyError(proxy) {
     }
     res.end(
       'Proxy error: Could not proxy request ' +
-        req.url +
-        ' from ' +
-        host +
-        ' to ' +
-        proxy +
-        ' (' +
-        err.code +
-        ').'
+      req.url +
+      ' from ' +
+      host +
+      ' to ' +
+      proxy +
+      ' (' +
+      err.code +
+      ').'
     );
   };
 }
@@ -160,64 +157,83 @@ function addMiddleware(devServer) {
     // - /*.hot-update.json (WebpackDevServer uses this too for hot reloading)
     // - /sockjs-node/* (WebpackDevServer uses this for hot reloading)
     // Tip: use https://jex.im/regulex/ to visualize the regex
-    const mayProxy = /^(?!\/(index\.html$|.*\.hot-update\.json$|sockjs-node\/)).*$/;
-    devServer.use(
-      mayProxy,
-      // Pass the scope regex both to Express and to the middleware for proxying
-      // of both HTTP and WebSockets to work without false positives.
-      httpProxyMiddleware(pathname => mayProxy.test(pathname), {
-        target: proxy,
-        logLevel: 'silent',
-        onError: onProxyError(proxy),
-        secure: false,
-        changeOrigin: true
-      })
-    );
+    devServer.proxy = {
+      context: [/^(?!\/(index\.html$|.*\.hot-update\.json$|sockjs-node\/)).*$/],
+      target: proxy,
+      secure: false,
+      changeOrigin: true,
+      logLevel: 'silent',
+      onError: onProxyError(proxy)
+    }
+
+    //   const mayProxy = /^(?!\/(index\.html$|.*\.hot-update\.json$|sockjs-node\/)).*$/;
+    //   devServer.use(
+    //     mayProxy,
+    //     // Pass the scope regex both to Express and to the middleware for proxying
+    //     // of both HTTP and WebSockets to work without false positives.
+    //     createProxyMiddleware(pathname => mayProxy.test(pathname), {
+    //       target: proxy,
+    //       logLevel: 'silent',
+    //       onError: onProxyError(proxy),
+    //       secure: false,
+    //       changeOrigin: true
+    //     })
+    //   );
+    // }
+    // Finally, by now we have certainly resolved the URL.
+    // It may be /index.html, so let the dev server try serving it again.
+    // devServer.use(devServer.middleware);
   }
-  // Finally, by now we have certainly resolved the URL.
-  // It may be /index.html, so let the dev server try serving it again.
-  devServer.use(devServer.middleware);
 }
 
 function runDevServer(host, port, protocol) {
   const devServer = new WebpackDevServer(compiler, {
+    proxy: {
+      context: ['**', '!/index.html', '/*.hot-update.json', '/sockjs-node/**'],
+      target: PROXY_URL,
+      secure: false,
+      changeOrigin: true,
+      // logLevel: 'silent',
+      onError: onProxyError(PROXY_URL)
+    },
     // Enable gzip compression of generated files.
     compress: true,
-    // Silence WebpackDevServer's own logs since they're generally not useful.
-    // It will still show compile warnings and errors with this setting.
-    clientLogLevel: 'none',
     // Enable hot reloading server. It will provide /sockjs-node/ endpoint
     // for the WebpackDevServer client so it can learn when the files were
     // updated. The WebpackDevServer client is included as an entry point
     // in the Webpack development configuration. Note that only changes
     // to CSS are currently hot reloaded. JS changes will refresh the browser.
     hot: true,
-    // It is important to tell WebpackDevServer to use the same "root" path
-    // as we specified in the config. In development, we always serve from /.
-    publicPath: config.output.publicPath,
-    // WebpackDevServer is noisy by default so we emit custom message instead
-    // by listening to the compiler events with `compiler.plugin` calls above.
-    quiet: true,
-    // Reportedly, this avoids CPU overload on some systems.
-    // https://github.com/facebookincubator/create-react-app/issues/293
-    watchOptions: {
-      ignored: /node_modules/
-    },
+
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
-    host
+    host,
+    static: {
+      // Reportedly, this avoids CPU overload on some systems.
+      // https://github.com/facebookincubator/create-react-app/issues/293
+      watch: {
+        ignored: /node_modules/
+      },
+    },
+    devMiddleware: {
+      // It is important to tell WebpackDevServer to use the same "root" path
+      // as we specified in the config. In development, we always serve from /.
+      publicPath: config.output.publicPath,
+    },
+    client: {
+      // Silence WebpackDevServer's own logs since they're generally not useful.
+      // It will still show compile warnings and errors with this setting.
+      // logging: 'none',
+    }
   });
 
-  // Our custom middleware proxies requests to /index.html or a remote API.
-  addMiddleware(devServer);
-
   // Launch WebpackDevServer.
-  devServer.listen(port, err => {
+  devServer.listen(port, host, err => {
     if (err) {
       return console.log(err);
     }
 
-    clearConsole();
+    // clearConsole();
     console.log(chalk.cyan('Starting the development server...'));
     console.log();
   });
@@ -238,13 +254,19 @@ detect(DEFAULT_PORT).then(port => {
     return;
   }
 
-  clearConsole();
+  // clearConsole();
   const question = chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.') +
     '\n\nWould you like to run the app on another port instead?';
 
-  prompt(question, true).then(shouldChangePort => {
-    if (shouldChangePort) {
+  (async () => {
+    const response = await prompts({
+      type: 'confirm',
+      name: 'value',
+      message: question,
+    });
+
+    if (response.value == true) {
       run(port);
     }
-  });
+  })();
 });
