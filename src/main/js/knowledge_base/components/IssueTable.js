@@ -29,10 +29,9 @@ export default function IssueTable(props) {
     async function queryKnowledgeBase() {
       issues.forEach(async (issue, index, issuesArray) => {
         if (issue.tags.includes('cwe')) {
-          const issueCopy = Object.assign({}, issue);
-          const owaspTitle = OwaspTop10.getTitle(issueCopy.tags);
-          if(owaspTitle) {
-            const markdown = await props.kbCache.fetch(owaspTitle);
+          issue.vulnerability = OwaspTop10.getTitle(issue.tags);
+          if(issue.vulnerability) {
+            const markdown = await props.kbCache.fetch(issue.vulnerability);
             issue.kb = markdown ? markdown : 'N/A';
             setIssues(issuesArray.slice());
           }
@@ -49,6 +48,8 @@ export default function IssueTable(props) {
           <thead>
             <tr>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Issue</th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Category</th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Last Updated</th>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Recommended Lab</th>
               <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Remediation Advice</th>
             </tr>

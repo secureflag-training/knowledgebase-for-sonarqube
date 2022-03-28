@@ -35,3 +35,16 @@
   const wrapper = mount(<HotspotItem hotspot={hotspot}/>);
   expect(wrapper.debug()).toContain('N/A');
  });
+
+
+test('HotspotItem has full vulnerability name', () => {
+  const hotspot = {
+    project: "project",
+    key: "key",
+    kb: "N/A",
+    vulnerability: "Cross-Site Scripting"
+  }
+
+  const wrapper = mount(<HotspotItem hotspot={hotspot}/>);
+  expect(wrapper.debug()).toContain('Cross-Site Scripting');
+});

@@ -18,6 +18,7 @@
  */
 
 import React from "react";
+import { formatDateWithBrowserTimeZone } from "../../common/dateUtils";
 import { extractExrLink, formatMarkdown } from "../../common/markdown";
 import LinkPill from "./LinkPill";
 import ModalPill from "./ModalPill";
@@ -34,6 +35,12 @@ export default function HotspotItem(props) {
     <tr key={hotspot.key}>
       <td class="pv3 pr3 bb b--black-20">
         <a href={hotspotLink}>{hotspot.message}</a>
+      </td>
+      <td class="pv3 pr3 bb b--black-20">
+        {hotspot.vulnerability && hotspot.vulnerability}
+      </td>
+      <td class="pv3 pr3 bb b--black-20">
+      {formatDateWithBrowserTimeZone(new Date(hotspot.updateDate))}
       </td>
       <td class="pv3 pr3 bb b--black-20">
         {hotspot.exr !== undefined ?

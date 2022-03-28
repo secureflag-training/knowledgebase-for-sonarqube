@@ -25,3 +25,15 @@ test('IssueItem extracts exrLink', () => {
   const wrapper = mount(<IssueItem issue={issue}/>);
   expect(wrapper.debug()).toContain('href="https://exrlink.com"');
 });
+
+test('IssueItem has full vulnerability name', () => {
+  const issue = {
+    project: "project",
+    key: "key",
+    kb: "Click [here](https://exrlink.com)",
+    vulnerability: "Cross-Site Scripting"
+  }
+
+  const wrapper = mount(<IssueItem issue={issue}/>);
+  expect(wrapper.debug()).toContain('Cross-Site Scripting');
+});

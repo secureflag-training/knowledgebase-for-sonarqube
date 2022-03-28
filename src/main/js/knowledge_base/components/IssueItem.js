@@ -18,6 +18,7 @@
  */
 
 import React from "react";
+import { formatDateWithBrowserTimeZone } from "../../common/dateUtils";
 import { extractExrLink, formatMarkdown } from "../../common/markdown";
 import LinkPill from "./LinkPill";
 import ModalPill from "./ModalPill";
@@ -34,6 +35,12 @@ export default function IssueItem(props) {
     <tr key={issue.key}>
       <td class="pv3 pr3 bb b--black-20">
         <a href={issueLink}>{issue.message}</a>
+      </td>
+      <td class="pv3 pr3 bb b--black-20">
+        {issue.vulnerability && issue.vulnerability}
+      </td>
+      <td class="pv3 pr3 bb b--black-20">
+        {formatDateWithBrowserTimeZone(new Date(issue.updateDate))}
       </td>
       <td class="pv3 pr3 bb b--black-20">
         {issue.kb !== undefined ?
