@@ -43,7 +43,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.apiVersion>8.9.0.43852</sonar.apiVersion>
-    <jdk.min.version>1.8</jdk.min.version>
+    <jdk.min.version>11</jdk.min.version>
     <sonar.sources>src/main/java,src/main/js</sonar.sources>
     <sonar.tests>tests</sonar.tests>
     <sonar.coverage.exclusions>src/main/java/**</sonar.coverage.exclusions>
