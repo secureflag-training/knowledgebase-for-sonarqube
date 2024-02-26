@@ -19,6 +19,7 @@
 
 import React from "react";
 import HotspotItem from "./HotspotItem";
+import tachyons from "../../tachyons.css"
 
 export default function HotspotTable(props) {
   const [hotspots, setHotspots] = React.useState(props.hotspots);
@@ -40,15 +41,15 @@ export default function HotspotTable(props) {
 
   return (
     <div>
-      <div class="overflow-auto">
-        <table class="f6 w-100 center" cellspacing="0">
+      <div className={`${tachyons['overflow-auto']}`}>
+        <table className={`${tachyons.f6} ${tachyons['w-100']} ${tachyons.center}`} cellspacing="0">
           <thead>
             <tr>
-              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Hotspot</th>
-              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Category</th>
-              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Last Updated</th>
-              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Recommended Lab</th>
-              <th class="fw6 bb b--black-20 tl pb3 pr3" scope="col">Remediation Advice</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Hotspot</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Category</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Last Updated</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Recommended Lab</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Remediation Advice</th>
             </tr>
           </thead>
           <tbody class="lh-copy">

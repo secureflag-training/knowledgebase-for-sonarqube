@@ -25,6 +25,7 @@ import {
 import KbCache from "../../common/KbCache";
 import IssueTable from "./IssueTable";
 import HotspotTable from "./HotspotTable";
+import tachyons from '../../tachyons.css'
 
 export default class KnowledgeBaseApp extends React.Component {
   state = {
@@ -56,12 +57,12 @@ export default class KnowledgeBaseApp extends React.Component {
     }
 
     return (
-      <div class="center pa3 ph5-ns">
+      <div className={`${tachyons.center} ${tachyons.pa3} ${tachyons['ph5-ns']}`}>
         <img src="https://user-images.githubusercontent.com/87369283/128739726-f334fbf2-c531-4972-a175-547485ba2322.png" width="20%"/>
-        <h1 class="f2 lh-title mb4">Knowledge Base</h1>
-        <h2 class="f3 lh-title">Recent Issues</h2>
+        <h1 className={`${tachyons.f1} ${tachyons['lh-title']} ${tachyons.mb4}`}>Knowledge Base</h1>
+        <h2 className={`${tachyons.f3} ${tachyons['lh-title']}`}>Recent Issues</h2>
         <IssueTable issues={this.state.securityIssues.issues} kbCache={this.state.kbCache}></IssueTable>
-        <h2 class="f3 lh-title">Recent Security Hotspots</h2>
+        <h2 className={`${tachyons.f3} ${tachyons['lh-title']}`}>Recent Security Hotspots</h2>
         <HotspotTable hotspots={this.state.securityHotspots.hotspots} kbCache={this.state.kbCache}></HotspotTable>
       </div>
     );

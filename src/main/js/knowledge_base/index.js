@@ -19,7 +19,6 @@
  */
 
 import React from 'react';
-import '../tachyons.min.css';
 import '../style.css';
 import KnowledgeBaseApp from './components/KnowledgeBaseApp';
 
