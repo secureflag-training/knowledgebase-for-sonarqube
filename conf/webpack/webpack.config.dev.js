@@ -14,6 +14,10 @@ module.exports = {
     devMiddleware: {
       index: false, // specify to enable root proxying
     },
+    // proxy expects sonarqube on 9000,
+    // it intercepts the request to grab the
+    // static frontend file from the local
+    // system
     proxy: [
       {
         context: ["/static"],

@@ -39,9 +39,6 @@ export default function HotspotItem(props) {
         <a href={hotspotLink}>{hotspot.message}</a>
       </td>
       <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
-        {hotspot.vulnerability ? hotspot.vulnerability : ''}
-      </td>
-      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
       {formatDateWithBrowserTimeZone(new Date(hotspot.updateDate))}
       </td>
       <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>

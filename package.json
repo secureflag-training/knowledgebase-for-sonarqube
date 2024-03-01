@@ -21,7 +21,7 @@
     "react": "^18.2",
     "react-dev-utils": "^12",
     "react-dom": "^18.2",
-    "react-markdown": "^6.0.0",
+    "react-markdown": "^9",
     "regenerator-runtime": "^0.14.1",
     "remark-gfm": "^4.0.0",
     "style-loader": "^3.3",
@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "start": "node scripts/start.js",
+    "start": "node scripts/server.js",
     "test": "node scripts/test.js"
   },
   "babel": {

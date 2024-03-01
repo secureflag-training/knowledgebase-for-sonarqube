@@ -18,7 +18,7 @@
  */
 
 export function extractExrLink(markdown) {
-  const linkRegex = /Click \[here\]\((.*?)\)/
+  const linkRegex = /<a href="(https:\/\/www\.secureflag\.com\/go.html\?type=search&c=.*?)">/
   const match = markdown.match(linkRegex);
   return match[1];
 }
@@ -30,5 +30,7 @@ export function formatMarkdown(text) {
   text = text.replace(tocRegex, "");
   const imageRegex = /^(!\[\w+\]\()(\/assets\/images.*)(\))$/gm;
   text = text.replace(imageRegex, "");
+  const playButtonRegex = /<p class="play-button">.*Play Labs on this vulnerability with SecureFlag!<\/span>.*?<\/p>/gms
+  text = text.replace(playButtonRegex, "");
   return text;
 }

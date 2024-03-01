@@ -20,6 +20,7 @@
 import React from "react";
 import HotspotItem from "./HotspotItem";
 import tachyons from "../../tachyons.css"
+import { getRuleDetails } from "../../common/api";
 
 export default function HotspotTable(props) {
   const [hotspots, setHotspots] = React.useState(props.hotspots);
@@ -28,12 +29,21 @@ export default function HotspotTable(props) {
     // Query Knowledge Base API for each vulnerability
     async function queryKnowledgeBase() {
       hotspots.forEach(async (hotspot, index, hotspotsArray) => {
-        if (hotspot.securityCategory) {
-          hotspot.vulnerability = hotspot.securityCategory
-          const markdown = await props.kbCache.fetch(hotspot.securityCategory);
-          hotspot.kb = markdown ? markdown : 'N/A';
-          setHotspots(hotspotsArray.slice());
+        let markdown = null;
+        // rule details contain information about the vuln
+        let ruleDetails = await getRuleDetails(hotspot.ruleKey)
+        console.debug(ruleDetails);
+        if (ruleDetails.rule?.descriptionSections) {
+          let resourcesSection = ruleDetails.rule.descriptionSections.find((section) => section.key == 'how_to_fix')
+          if (resourcesSection) {
+            markdown = await props.kbCache.fetch(resourcesSection.content);
+          }
+        } else if (ruleDetails.rule?.htmlDesc) {
+          markdown = await props.kbCache.fetch(ruleDetails.rule.htmlDesc);
         }
+
+        hotspot.kb = markdown ? markdown : 'N/A';
+        setHotspots(hotspotsArray.slice());
       });
     }
     queryKnowledgeBase();
@@ -46,9 +56,8 @@ export default function HotspotTable(props) {
           <thead>
             <tr>
               <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Hotspot</th>
-              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Category</th>
               <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Last Updated</th>
-              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Recommended Lab</th>
+              <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Related Labs</th>
               <th className={`${tachyons.fw6} ${tachyons.bb} ${tachyons['b--black-20']} ${tachyons.tl} ${tachyons.pb3} ${tachyons.pr3}" scope="col"`}>Remediation Advice</th>
             </tr>
           </thead>

@@ -22,6 +22,7 @@ import { formatDateWithBrowserTimeZone } from "../../common/dateUtils";
 import { extractExrLink, formatMarkdown } from "../../common/markdown";
 import LinkPill from "./LinkPill";
 import ModalPill from "./ModalPill";
+import Pill from "./Pill";
 import tachyons from '../../tachyons.css'
 
 export default function IssueItem(props) {
@@ -38,20 +39,17 @@ export default function IssueItem(props) {
         <a href={issueLink}>{issue.message}</a>
       </td>
       <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
-        {issue.vulnerability ? issue.vulnerability : ''}
-      </td>
-      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
         {formatDateWithBrowserTimeZone(new Date(issue.updateDate))}
       </td>
       <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
-        {issue.kb !== undefined ?
+        {issue.exr !== undefined ?
           <LinkPill link={issue.exr} text="Training Lab"></LinkPill>
         :
           issue.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
       <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
-        {issue.kb !== undefined ?
+        {issue.exr !== undefined ?
           <ModalPill markdown={formatMarkdown(issue.kb)}></ModalPill>
         :
           issue.kb ? <Pill text="N/A"/> : 'Fetching...'

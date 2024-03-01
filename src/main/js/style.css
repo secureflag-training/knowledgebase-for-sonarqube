@@ -50,3 +50,7 @@
 .modalContent h1 {
   margin-bottom: 0.3em;
 }
+
+.pluginContainer {
+  max-width: 1920px;
+}

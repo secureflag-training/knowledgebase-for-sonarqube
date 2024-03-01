@@ -18,9 +18,15 @@
  */
 
 import React from "react";
+import tachyons from "../../tachyons.css";
 
 export default function LinkPill(props) {
   return (
-    <a class="f6 link br-pill ph3 pv2 dib white hover-white dim bg-blue" href={props.link}>{props.text}</a>
-  )
+    <a
+      className={`${tachyons.f6} ${tachyons.link} ${tachyons["br-pill"]} ${tachyons.ph3} ${tachyons.pv2} ${tachyons.dib} ${tachyons.white} ${tachyons["hover-white"]} ${tachyons.dim} ${tachyons["bg-blue"]}`}
+      href={props.link}
+    >
+      {props.text}
+    </a>
+  );
 }
