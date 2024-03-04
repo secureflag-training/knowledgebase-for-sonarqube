@@ -53,7 +53,6 @@ export default function ModalPill(props) {
               />
             </p>
             <ReactMarkdown
-              options={{ skipHtml: false }}
               remarkPlugins={[remarkGfm]}
             >
               {props.markdown}

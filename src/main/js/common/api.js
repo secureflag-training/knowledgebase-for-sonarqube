@@ -26,11 +26,10 @@ export function findNewSecurityIssues(project) {
     types: ['VULNERABILITY'],
     facets: ['owaspTop10', 'sansTop25', 'cwe', 'sonarsourceSecurity'],
     p: 1,
-    ps: 30,
+    ps: 100,
     statuses: ['OPEN', 'REOPENED', 'CONFIRMED'],
     additionalFields: '_all'
   }).then(response => {
-    console.debug(response)
     return response;
   });
 }
@@ -38,10 +37,9 @@ export function findNewSecurityIssues(project) {
 export function findNewSecurityHotspots(project) {
   return getJSON("/api/hotspots/search", {
     projectKey: project.key,
-    ps: 30,
+    ps: 100,
     status: 'TO_REVIEW'
   }).then(response => {
-    console.debug(response)
     return response;
   });
 }
@@ -50,7 +48,6 @@ export function getRuleDetails(rule) {
   return getJSON("/api/rules/show", {
     key: rule
   }).then(response => {
-    console.debug(response);
     return response;
   });
 }
