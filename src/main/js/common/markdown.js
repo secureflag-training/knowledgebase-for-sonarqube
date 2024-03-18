@@ -28,7 +28,7 @@ export function formatMarkdown(text) {
   text = text.replace(frontmatterRegex, "");
   const tocRegex = /^1. TOC\n{:toc}$/m;
   text = text.replace(tocRegex, "");
-  const imageRegex = /^(!\[\w+\]\()(\/assets\/images.*)(\))$/gm;
+  const imageRegex = /^(!\[\w+\]\()(\/assets\/images.*|data:image\/png.*)?(\))$/gm
   text = text.replace(imageRegex, "");
   const playButtonRegex = /<p class="play-button">.*Play Labs on this vulnerability with SecureFlag!<\/span>.*?<\/p>/gms
   text = text.replace(playButtonRegex, "");

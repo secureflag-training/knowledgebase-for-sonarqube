@@ -32,7 +32,6 @@ export default function HotspotTable(props) {
         let markdown = null;
         // rule details contain information about the vuln
         let ruleDetails = await getRuleDetails(hotspot.ruleKey)
-        console.debug(ruleDetails);
         if (ruleDetails.rule?.descriptionSections) {
           let resourcesSection = ruleDetails.rule.descriptionSections.find((section) => section.key == 'how_to_fix')
           if (resourcesSection) {

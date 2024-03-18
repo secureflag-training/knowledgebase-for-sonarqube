@@ -30,6 +30,7 @@ export function findNewSecurityIssues(project) {
     statuses: ['OPEN', 'REOPENED', 'CONFIRMED'],
     additionalFields: '_all'
   }).then(response => {
+    console.debug(response);
     return response;
   });
 }
@@ -40,6 +41,7 @@ export function findNewSecurityHotspots(project) {
     ps: 100,
     status: 'TO_REVIEW'
   }).then(response => {
+    console.debug(response);
     return response;
   });
 }

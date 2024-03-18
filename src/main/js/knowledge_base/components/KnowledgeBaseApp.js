@@ -59,7 +59,7 @@ export default class KnowledgeBaseApp extends React.Component {
 
     return (
       <div className={`${styles.pluginContainer} ${tachyons.center} ${tachyons.pa3} ${tachyons['ph5-ns']}`}>
-        <img src="https://user-images.githubusercontent.com/87369283/128739726-f334fbf2-c531-4972-a175-547485ba2322.png" width="20%"/>
+        <img src="https://blog.secureflag.com/assets/images/logo.png" width="20%"/>
         <h1 className={`${tachyons.f1} ${tachyons['lh-title']} ${tachyons.mb4}`}>Knowledge Base</h1>
         <h2 className={`${tachyons.f3} ${tachyons['lh-title']}`}>Recent Vulnerabilities</h2>
         <IssueTable issues={this.state.securityIssues.issues} kbCache={this.state.kbCache}></IssueTable>
