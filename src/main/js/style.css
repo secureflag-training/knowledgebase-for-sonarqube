@@ -29,7 +29,20 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.modalContainer ul {
+  list-style-type: disc;
+}
+
+.modalContainer ul li {
+  margin-left: 2em;
+}
+
+.modalContainer h1 {
+  font-size: 32px;
+}
+
 .modalContent {
+  max-width: 1000px;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -49,4 +62,13 @@
 
 .modalContent h1 {
   margin-bottom: 0.3em;
+}
+
+.modalContent pre {
+  margin-bottom: 0.5em;
+  padding: 1em;
+}
+
+.pluginContainer {
+  max-width: 1920px;
 }

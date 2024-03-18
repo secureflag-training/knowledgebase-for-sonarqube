@@ -20,39 +20,55 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import styles from "../../style.css";
+import tachyons from "../../tachyons.css";
 
 export default function ModalPill(props) {
   const [showModal, setShowModal] = React.useState(false);
 
   const handleOpenModal = () => {
     setShowModal(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
-  }
+  };
 
   return (
     <div>
-      <a class="f6 link dim br-pill ph3 pv2 dib white hover-white bg-near-black" 
+      <a
+        className={`${tachyons.f6} ${tachyons.link} ${tachyons.dim} ${tachyons["br-pill"]} ${tachyons.ph3} ${tachyons.pv2} ${tachyons.dib} ${tachyons.white} ${tachyons["hover-white"]} ${tachyons["bg-near-black"]}`}
         href={props.link}
-        onClick={handleOpenModal}>
-      Read More
+        onClick={handleOpenModal}
+      >
+        Read More
       </a>
-      {showModal ? 
-        <div class="modalContainer">
-          <div class="modalContent">
-            <p align="left" width="100%"><img src="https://user-images.githubusercontent.com/87369283/128739726-f334fbf2-c531-4972-a175-547485ba2322.png" width="50%"/></p>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.markdown}</ReactMarkdown>
-            <a class="f6 link dim br-pill ph3 pv2 dib white bg-near-black" 
+      {showModal ? (
+        <div className={`${styles.modalContainer}`}>
+          <div className={`${styles.modalContent}`}>
+            <p align="left" width="100%">
+              <img
+                src="https://user-images.githubusercontent.com/87369283/128739726-f334fbf2-c531-4972-a175-547485ba2322.png"
+                width="600px"
+              />
+            </p>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+            >
+              {props.markdown}
+            </ReactMarkdown>
+            <a
+              className={`${tachyons.f6} ${tachyons.link} ${tachyons.dim} ${tachyons["br-pill"]} ${tachyons.ph3} ${tachyons.pv2} ${tachyons.dib} ${tachyons.white} ${tachyons["bg-near-black"]}`}
               href={props.link}
-              onClick={handleCloseModal}>
-            Close
+              onClick={handleCloseModal}
+            >
+              Close
             </a>
           </div>
         </div>
-      :
-        ''}
+      ) : (
+        ""
+      )}
     </div>
-  )
+  );
 }

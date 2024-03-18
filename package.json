@@ -4,40 +4,35 @@
   "version": "1.0.0",
   "devDependencies": {
     "@babel/core": "^7.17.5",
-    "@babel/plugin-transform-runtime": "^7.17.0",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.23",
+    "@babel/preset-env": "^7.23",
+    "@babel/preset-react": "^7.23",
+    "@types/react": "^18.2.57",
     "autoprefixer": "10.4.2",
     "babel-jest": "27.5.1",
-    "babel-loader": "^8.2.3",
-    "css-loader": "5",
-    "detect-port": "1.0.0",
+    "babel-loader": "^9.1",
+    "css-loader": "^6.10",
     "dotenv": "16.0.0",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "enzyme-to-json": "3",
     "jest": "27.5.1",
-    "jest-enzyme": "^7.1.2",
     "jest-fetch-mock": "^3.0.3",
     "postcss": "^8.4.7",
-    "postcss-loader": "^4.3.0",
-    "prettier": "2.5.1",
-    "prompts": "^2.4.2",
-    "react": "16.8",
-    "react-dev-utils": "12",
-    "react-dom": "16.8",
-    "react-markdown": "^6.0.0",
-    "regenerator-runtime": "^0.13.9",
-    "remark-gfm": "^1.0.0",
-    "style-loader": "2",
-    "terser-webpack-plugin": "^4.2.3",
-    "webpack": "4",
-    "webpack-dev-server": "4.7.4"
+    "postcss-loader": "^8.1.0",
+    "react": "^18.2",
+    "react-dev-utils": "^12",
+    "react-dom": "^18.2",
+    "react-markdown": "^9",
+    "regenerator-runtime": "^0.14.1",
+    "remark-gfm": "^4.0.0",
+    "style-loader": "^3.3",
+    "terser-webpack-plugin": "^5.3",
+    "webpack": "^5",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5"
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "start": "node scripts/start.js",
+    "start": "node scripts/server.js",
     "test": "node scripts/test.js"
   },
   "babel": {
@@ -73,12 +68,6 @@
     "setupFiles": [
       "<rootDir>/conf/jest/SetupTestEnvironment.js"
     ],
-    "setupFilesAfterEnv": [
-      "./node_modules/jest-enzyme/lib/index.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules",
       "<rootDir>/scripts",
@@ -94,5 +83,6 @@
     "@babel/runtime": "^7.17.2",
     "core-js": "3",
     "underscore": "^1.12.1"
-  }
+  },
+  "packageManager": "npm@10.4.0+sha256.0e4e5986526a578a6cdc5647cf862efba03dfcb063672f90bc525433b893fba9"
 }

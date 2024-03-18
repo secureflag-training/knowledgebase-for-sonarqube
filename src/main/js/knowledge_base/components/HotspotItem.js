@@ -23,6 +23,7 @@ import { extractExrLink, formatMarkdown } from "../../common/markdown";
 import LinkPill from "./LinkPill";
 import ModalPill from "./ModalPill";
 import Pill from "./Pill";
+import tachyons from '../../tachyons.css'
 
 export default function HotspotItem(props) {
   const hotspot = props.hotspot;
@@ -34,23 +35,20 @@ export default function HotspotItem(props) {
   
   return (
     <tr key={hotspot.key}>
-      <td class="pv3 pr3 bb b--black-20">
+      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
         <a href={hotspotLink}>{hotspot.message}</a>
       </td>
-      <td class="pv3 pr3 bb b--black-20">
-        {hotspot.vulnerability ? hotspot.vulnerability : ''}
-      </td>
-      <td class="pv3 pr3 bb b--black-20">
+      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
       {formatDateWithBrowserTimeZone(new Date(hotspot.updateDate))}
       </td>
-      <td class="pv3 pr3 bb b--black-20">
+      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
         {hotspot.exr !== undefined ?
           <LinkPill link={hotspot.exr} text="Training Lab"></LinkPill>
         :
           hotspot.kb ? <Pill text="N/A"/> : 'Fetching...'
         }
       </td>
-      <td class="pv3 pr3 bb b--black-20">
+      <td className={`${tachyons.pv3} ${tachyons.pr3} ${tachyons.bb} ${tachyons['b--black-20']}`}>
         {hotspot.exr !== undefined ?
           <ModalPill markdown={formatMarkdown(hotspot.kb)}></ModalPill>
         :

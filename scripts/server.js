@@ -1,5 +1,5 @@
 /*
- * SecureFlag Knowledge Base for SonarQube
+ * Copyright (C) 2009-2020 SonarSource SA
  * Copyright (C) 2022 SecureFlag Limited
  *
  * This program is free software; you can redistribute it and/or
@@ -17,16 +17,18 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import React from "react";
-import tachyons from "../../tachyons.css";
+process.env.NODE_ENV = 'development';
+const Webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const webpackConfig = require('../conf/webpack/webpack.config.dev');
 
-export default function LinkPill(props) {
-  return (
-    <a
-      className={`${tachyons.f6} ${tachyons.link} ${tachyons["br-pill"]} ${tachyons.ph3} ${tachyons.pv2} ${tachyons.dib} ${tachyons.white} ${tachyons["hover-white"]} ${tachyons.dim} ${tachyons["bg-blue"]}`}
-      href={props.link}
-    >
-      {props.text}
-    </a>
-  );
-}
+const compiler = Webpack(webpackConfig);
+const devServerOptions = { ...webpackConfig.devServer, open: true };
+const server = new WebpackDevServer(devServerOptions, compiler);
+
+const runServer = async () => {
+  console.log('Starting server...');
+  await server.start();
+};
+
+runServer();

@@ -24,27 +24,24 @@ module.exports = {
   // defined in src/main/java/org/sonarsource/plugins/example/web/MyPluginPageDefinition.java
   entry: {
     // Using React:
-    knowledge_base: ["./src/main/js/knowledge_base/index.js"]
+    knowledge_base: ["./src/main/js/knowledge_base/index.js"],
   },
   output: {
     // The entry point files MUST be shipped inside the final JAR's static/
     // directory.
     path: path.join(__dirname, "../../target/classes/static"),
-    filename: "[name].js"
+    filename: "[name].js",
   },
   resolve: {
-    modules: [
-      path.join(__dirname, "src/main/js"),
-      'node_modules'
-    ]
+    modules: [path.join(__dirname, "src/main/js"), "node_modules"],
   },
   externals: {
-    // React 16.8 ships with SonarQube, and should be re-used to avoid 
+    // React 18 ships with SonarQube, and should be re-used to avoid
     // collisions at runtime.
     react: "React",
     "react-dom": "ReactDOM",
     // Register the Sonar* globals as packages, to simplify importing.
-    // See src/main/js/common/api.js for more information on what is exposed 
+    // See src/main/js/common/api.js for more information on what is exposed
     // in SonarRequest.
     "sonar-request": "SonarRequest",
   },
@@ -59,9 +56,18 @@ module.exports = {
       },
       {
         test: /\.css/,
-        use: ["style-loader", "css-loader", "postcss-loader"]
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          },
+          "postcss-loader",
+        ],
       },
-    ]
+    ],
   },
-  plugins: [new DuplicatePackageCheckerPlugin()]
+  plugins: [new DuplicatePackageCheckerPlugin()],
 };

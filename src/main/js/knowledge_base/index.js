@@ -19,10 +19,13 @@
  */
 
 import React from 'react';
-import '../tachyons.min.css';
 import '../style.css';
 import KnowledgeBaseApp from './components/KnowledgeBaseApp';
 
 window.registerExtension('secureflag/knowledge_base', (options) => {
-  return <KnowledgeBaseApp options={options}/>
+  try {
+    return <KnowledgeBaseApp options={options}/>
+  } catch(e) {
+    console.error(e);
+  }
 });
