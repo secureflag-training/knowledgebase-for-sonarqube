@@ -5,7 +5,7 @@
   <groupId>com.secureflag.knowledgebase</groupId>
   <artifactId>sonar-secureflag-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 
   <name>SecureFlag Knowledge Base for SonarQube</name>
   <description>Project page suggesting SecureFlag training labs and remediation advice for recently detected vulnerabilities and security hotspots</description>
