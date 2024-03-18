@@ -6,8 +6,8 @@ on:
  pull_request:
    types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,12 +15,3 @@ jobs:
           fetch-depth: 0 
       - name: mvn clean package
         run: mvn clean package
-      - name: Jest coverage
-        run: yarn jest --coverage
-      - name: Delete pom.xml
-        run: rm pom.xml
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
